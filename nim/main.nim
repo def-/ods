@@ -1,5 +1,5 @@
 import algorithms,
-  times, math
+  times, math, algorithm
 randomize()
 
 proc isSorted[T](a: openarray[T]): bool =
@@ -39,6 +39,16 @@ proc sortTests(n: int) =
   flushFile stdout
   start = cpuTime()
   mergeSort(a)
+  stop = cpuTime()
+  echo "done (", stop-start, "s)"
+  assert isSorted(a)
+
+  for i in 0..a.high:
+    a[i] = random(int.high)
+  stdout.write "Sorting ", n, " elements using built in sort..."
+  flushFile stdout
+  start = cpuTime()
+  sort(a, cmp[int])
   stop = cpuTime()
   echo "done (", stop-start, "s)"
   assert isSorted(a)

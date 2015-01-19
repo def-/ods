@@ -50,6 +50,11 @@ proc mergeSort*[T](a: var seq[T]) =
   if a.len <= 1: return
   var a0 = a[0 .. <(a.len div 2)]
   var a1 = a[a.len div 2 .. a.high]
+  # Only slightly faster
+  #var a0 = newSeq[int](a.len div 2)
+  #var a1 = newSeq[int](a.len - a.len div 2)
+  #copyMem(addr(a0[0]), addr(a[0]), (a.len div 2) * sizeof(T))
+  #copyMem(addr(a1[0]), addr(a[a.len div 2]), (a.len - a.len div 2) * sizeof(T))
   mergeSort(a0)
   mergeSort(a1)
   merge(a0, a1, a)
